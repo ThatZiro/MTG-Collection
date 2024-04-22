@@ -1,0 +1,12 @@
+.MissingContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  max-width: 500px;
+
+  h3{
+    text-align: center;
+  }
+}

@@ -1,0 +1,141 @@
+/* Reset margins, padding, and borders */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* Body reset */
+body {
+  line-height: 1;
+  font-size: 100%; /* Keep font size to browser default */
+  font-family: Arial, sans-serif; /* Change to your preferred font */
+}
+
+ol, ul {
+  list-style: none;
+}
+
+/* Reset link styles */
+a {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+/* Reset text formatting */
+b,
+strong {
+  font-weight: bold;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+/* Table reset */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Reset form elements */
+input,
+button,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+}
+
+/* Remove tap highlight in mobile browsers */
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button[disabled],
+input[disabled] {
+  cursor: default;
+}
+
+/* Remove default button styling */
+button,
+input {
+  overflow: visible;
+}
+
+/* Remove spin button and clear button in input types */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button,
+input[type="date"]::-webkit-clear-button,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Adjust line height in all browsers */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  resize: vertical;
+}
+
+/* Set consistent border, margin, and padding for fieldset */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+/* Reset styles for legends */
+legend {
+  box-sizing: border-box; /* content-box */
+  color: inherit; /* Set from font color */
+  display: table; /* Not display: block because it is not used in IE */
+  max-width: 100%; /* Reset width to 100% of parent */
+  padding: 0; /* To remove padding */
+  white-space: normal; /* To prevent wrapping */
+}
+
+/* Remove default vertical scrollbar in IE */
+textarea {
+  overflow: auto;
+}
+
+/* Set 'cursor:pointer' for clickable elements accessible via keyboard */
+[role="button"],
+input[type="button"],
+input[type="reset"],
+input[type="submit"],
+button {
+  cursor: pointer;
+}
+
+/* Remove inner padding and search cancel button in Safari and Chrome on macOS */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* Define focus styles for interactive elements */
+:focus {
+  outline: 2px solid blue;
+}

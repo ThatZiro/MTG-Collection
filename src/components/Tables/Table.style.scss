@@ -1,0 +1,36 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  .tab {
+    cursor: pointer;
+  }
+
+  button {
+    padding: 5px 10px;
+    margin: 0;
+    background-color: #f00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #c00;
+    }
+  }
+}

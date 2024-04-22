@@ -1,0 +1,17 @@
+.Header {
+  position: absolute;
+  left: 100px;
+  top: 0;
+  right: 0;
+  height: 75px;
+  padding: 25px;
+  background-color: var(--off-background-color);
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  h1{
+    color: var(--off-background-text);
+  }
+}

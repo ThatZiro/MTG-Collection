@@ -1,0 +1,161 @@
+.AddCardsToCollection{
+  position: absolute;
+  z-index: 1000;
+  left: 100px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  gap: 50px;
+
+  &::before{
+    z-index: -1;
+    position: absolute;
+    content: "";
+    inset: 0;
+    background-color: var(--overlay-color);
+    opacity: 90%;
+  }
+
+
+  .left-panel {
+    width: 30%;
+    height: 750px;
+    border-radius: 15px;
+    padding: 25px;
+    background-color: var(--background-color);
+
+    .input {
+      display: flex;
+      flex-direction: column;
+      border-bottom: solid var(--accent-color) 2px;
+
+      #cardName {
+        width: 100%;
+        height: 25px;
+        padding: 5px;
+      }
+
+      .lower-inputs {
+        height: 50px;
+        margin-bottom: 15px;
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+
+        .foil {
+          height: 25px;
+          width: 10%;
+        }
+        #foil {
+          height: 25px;
+          width: 25px;
+        }
+
+        .condition {
+          height: 25px;
+          width: 40%;
+          text-align: start;
+          label{
+            width: 100%;
+          }
+          select{
+            width: 100%;
+            height: 25px;
+            padding: 5px;
+            text-align: center;
+          }
+        }
+        .quantity {
+          height: 25px;
+          width: 10%;
+          label{
+            width: 100%;
+          }
+          input {
+            width: 100%;
+            height: 25px;
+            text-align: center;
+            padding: 5px;
+          }
+        }
+        .tag {
+          height: 25px;
+          width: 40%;
+          text-align: start;
+          label{
+            width: 100%;
+          }
+          input {
+            width: 100%;
+            height: 25px;
+            padding-left: 5px;
+          }
+        }
+      }
+    }
+
+    .selection {
+      display: flex;
+      width: 100%;
+      height: 550px;
+      padding: 25px;
+      overflow: hidden;
+      gap: 5px;
+
+      .list {
+        flex-grow: 1; // Applied new CSS property to make this div take up the remaining width
+
+        .searchresults {
+          display: flex;
+          flex-direction: column;
+          min-width: 50px;
+
+          .searchtext{
+            position: relative;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 35px;
+            display: flex; // Center the text vertically
+            align-items: center; // Align items vertically in the center
+            justify-content: center; // Align items horizontally in the center
+            background-color: var(--off-background-color);
+
+            &:nth-child(even) {
+              background-color: var(--off-background-color-alt);
+            }
+
+            &:hover {
+              border-right: solid var(--accent-color) 5px ;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .imgcontainer {
+        width: 150px;
+        height: 100%;
+
+        img {
+          width: 150px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  .right-panel {
+    width: 60%;
+    height: 750px;
+    border-radius: 15px;
+    padding: 25px;
+    background-color: var(--background-color);
+  }
+}
