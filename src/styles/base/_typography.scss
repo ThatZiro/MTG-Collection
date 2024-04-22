@@ -1,0 +1,47 @@
+// Typography settings
+$font-primary: 'Helvetica Neue', Arial, sans-serif;
+$font-secondary: 'Georgia', serif;
+
+$font-size-base: 16px; // Base font size
+$font-size-sm: 0.875rem; // Small font size
+$font-size-lg: 1.25rem; // Large font size
+
+$line-height-base: 1.5;
+$heading-font-weight: bold;
+$text-font-weight: normal;
+
+// Base styles for body
+body {
+  font-family: $font-primary;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: #333;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-secondary;
+  font-weight: $heading-font-weight;
+  color: #222;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
+
+// Additional styles for p, a, etc.
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

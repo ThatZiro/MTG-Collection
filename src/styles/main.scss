@@ -1,0 +1,25 @@
+// Import base styles
+@import "./base/reset";
+@import "./base/base";
+@import "./base/typography";
+
+// Import themes
+@import "themes/light";
+@import "themes/dark";
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+header {
+  background-color: var(--header-background);
+}
+
+.icon{
+  fill : var(--header-background);
+}
