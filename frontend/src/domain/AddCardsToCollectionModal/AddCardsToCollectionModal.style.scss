@@ -123,10 +123,13 @@
             margin: 0;
             width: 100%;
             height: 35px;
-            display: flex; // Center the text vertically
-            align-items: center; // Align items vertically in the center
-            justify-content: center; // Align items horizontally in the center
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: var(--off-background-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
 
             &:nth-child(even) {
               background-color: var(--off-background-color-alt);

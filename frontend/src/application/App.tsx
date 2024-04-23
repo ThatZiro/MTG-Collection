@@ -1,3 +1,4 @@
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import '@styles/main.scss';
 import {Sidebar} from "../domain/Sidebar";
 import {ThemeProvider} from "../context/ThemeContext";
@@ -6,14 +7,19 @@ import {HomeView} from "@views/Home";
 import {CollectionView} from "@views/Collection";
 import {DeckView} from "@views/Deck";
 
-function App() {
+// Setup Apollo Client
+const client = new ApolloClient({
+  uri: "http://localhost:5000/graphql", // replace with your GraphQL server URI
+  cache: new InMemoryCache()
+});
 
+function App() {
   return (
-    <>
+    <ApolloProvider client={client}>
       <ThemeProvider>
         <MainComponent/>
       </ThemeProvider>
-    </>
+    </ApolloProvider>
   )
 }
 

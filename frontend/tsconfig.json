@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Paths */
-    "baseUrl": ".",
+    "baseUrl": "../frontend",
     "paths": {
       "@application/*": ["./src/application/*"],
       "@assets/*": ["./src/assets/*"],
@@ -29,9 +29,9 @@
       "@infrastructure/*": ["./src/infrastructure/*"],
       "@pages/*": ["./src/pages/*"],
       "@styles/*": ["./src/styles/*"],
-      "@views/*": ["./src/views/*"],
+      "@views/*": ["./src/views/*"]
     }
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json"}]
 }
