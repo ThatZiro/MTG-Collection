@@ -160,5 +160,29 @@
     border-radius: 15px;
     padding: 25px;
     background-color: var(--background-color);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .details {
+        align-items: center;
+        display: flex;
+        gap: 25px;
+      }
+      p {
+        margin: 0;
+      }
+    }
   }
 }

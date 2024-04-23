@@ -7,7 +7,7 @@ interface TableHeaders {
 }
 
 interface TableRowData {
-  id: number;
+  id: number | string;
   [key: string]: unknown;
 }
 
@@ -15,9 +15,10 @@ interface TableProps {
   headers: TableHeaders;
   data: TableRowData[];
   removeHandler: (id: number) => void;
+  height: number
 }
 
-export const Table: React.FC<TableProps> = ({headers, data, removeHandler}) => {
+export const Table: React.FC<TableProps> = ({headers, data, removeHandler, height}) => {
   const headerKeys = Object.keys(headers);
 
   return (
@@ -29,13 +30,13 @@ export const Table: React.FC<TableProps> = ({headers, data, removeHandler}) => {
         ))}
       </tr>
       </thead>
-      <tbody>
+      <tbody style={{"height": `${height}px`}}>
       {data.map((item, index) => (
         <tr key={index}>
           {headerKeys.map((header) => (
             <td key={header} style={{flex: headers[header], flexBasis: '0.000000001px'}}>
               {header === 'remove'
-                ? <button onClick={() => removeHandler(item.id)} className={"button"}>Remove</button>
+                ? <button onClick={() => removeHandler(index)} className={"button"}>X</button>
                 : (item[header] as React.ReactNode) // assert as ReactNode here
               }
             </td>

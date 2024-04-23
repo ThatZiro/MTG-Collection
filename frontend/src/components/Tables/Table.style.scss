@@ -1,11 +1,22 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  display: block;
+
+  thead, tbody, tr, th, td {
+    display: block;
+  }
+
+  tr {
+    display: flex;
+  }
 
   th, td {
     text-align: left;
     padding: 8px;
     border-bottom: 1px solid #ccc;
+    flex: 1;
+    white-space: nowrap;
   }
 
   th {
@@ -31,6 +42,16 @@
 
     &:hover {
       background-color: #c00;
+    }
+  }
+
+  tbody {
+    overflow-y: auto; // Adds vertical scrollbar
+    overflow-x: hidden; // Hides horizontal scrollbar
+
+    &::-webkit-scrollbar {
+      display: none;
+      scrollbar-width: none; // Firefox
     }
   }
 }

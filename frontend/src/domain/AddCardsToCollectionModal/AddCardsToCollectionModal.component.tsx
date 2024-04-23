@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from "react";
-
 import "./AddCardsToCollectionModal.style.scss"
 import {Table} from "../../components/Tables/Table.component";
-
-
 import {SEARCH_CARD} from "../../infrastructure/graphql/mutations/queries";
 import {useLazyQuery} from "@apollo/client";
 import {LocalStorage} from "../../infrastructure/db/localstorage";
+import {ActionButtonComponent} from "../../components/Buttons/ActionButton";
 
 const localStorageManager = new LocalStorage();
 interface SearchResult {
@@ -21,7 +19,7 @@ interface SearchCardData {
 
 const headers = {
   count: 2,
-  card: 6,
+  name: 6,
   foil: 1,
   condition: 4,
   tag: 4,
@@ -29,24 +27,23 @@ const headers = {
   remove: 1
 };
 
-const data = [
-  { id: 1, count: 5, card: "Black Lotus", foil: "Yes", condition: "Mint", tag: "Rare", price: "$10,000" },
-  { id: 2, count: 3, card: "Mox Pearl", foil: "No", condition: "Near Mint", tag: "Uncommon", price: "$2,000" }
-  // More rows can be added here
-];
-
-const handleRemove = (id: number) => {
-  console.log('Remove item with id:', id);
-  // Implement deletion logic here
-};
+interface CardDetail {
+  id: string;
+  name: string;
+  foil: string;
+  condition: string;
+  count: string;
+  tag: string;
+  price: string;
+}
 
 export const AddCardsToCollectionModalComponent: React.FC<{onClose:()=>void}> = ({onClose}) => {
   const [getSearchCard, { data: searchCardData }] = useLazyQuery<SearchCardData, { input: string }>(SEARCH_CARD);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [collection, setCollection] = useState<string[]>(() => {
+  const [collection, setCollection] = useState<CardDetail[]>(() => {
     const storedCollection = localStorageManager.load('addCollection');
-    return storedCollection ? storedCollection : [];
+    return storedCollection ? (storedCollection as CardDetail[]) : [];
   });
   const handleChange = async(event: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -69,6 +66,7 @@ export const AddCardsToCollectionModalComponent: React.FC<{onClose:()=>void}> = 
     }
   }, [searchCardData]);
 
+
   const hoverCard = (event: React.MouseEvent<HTMLParagraphElement>) => {
     const hoverImageUri = event.currentTarget.getAttribute("data-hoverimage");
     setHoveredCard(hoverImageUri);
@@ -83,16 +81,16 @@ export const AddCardsToCollectionModalComponent: React.FC<{onClose:()=>void}> = 
 
 
       // Other details from input fields
-      const foil = (document.getElementById("foil") as HTMLInputElement).checked ? "Yes" : "No";
+      const foil = (document.getElementById("foil") as HTMLInputElement).checked ? "Y" : "N";
       const condition = (document.getElementById("condition") as HTMLSelectElement).value;
-      const quantity = (document.getElementById("quantity") as HTMLInputElement).value;
+      const count = (document.getElementById("quantity") as HTMLInputElement).value;
       const tag = (document.getElementById("tagCard") as HTMLInputElement).value;
 
-      let price_usd;
-      if(foil === "Yes") {
-        price_usd = parsed_prices?.usd_foil ?? 'unknown'; // will use 'unknown' if usd_foil is null or undefined
+      let price;
+      if(foil === "Y") {
+        price = parsed_prices?.usd_foil ?? 'unknown'; // will use 'unknown' if usd_foil is null or undefined
       } else {
-        price_usd = parsed_prices?.usd ?? 'unknown'; // will use 'unknown' if usd is null or undefined
+        price = parsed_prices?.usd ?? 'unknown'; // will use 'unknown' if usd is null or undefined
       }
 
       // Constructing the card object with all details
@@ -101,9 +99,9 @@ export const AddCardsToCollectionModalComponent: React.FC<{onClose:()=>void}> = 
         name,
         foil,
         condition,
-        quantity,
+        count,
         tag,
-        price_usd
+        price
       };
 
       // Always add card to the collection, regardless of duplicates
@@ -113,6 +111,40 @@ export const AddCardsToCollectionModalComponent: React.FC<{onClose:()=>void}> = 
       setCollection(updatedCollection);
     }
   };
+
+  const handleRemoveCard = (index: number) => {
+    const updatedCollection = [...collection];
+    updatedCollection.splice(index, 1);
+    localStorageManager.save('addCollection', updatedCollection);
+    setCollection(updatedCollection);
+  };
+
+  const getCount = () => {
+    let count = 0
+    for (const element of collection) {
+      count += parseInt(element.count);
+    }
+    return count;
+  }
+  const getCost = ():string => {
+    let cost = 0
+    let hasUnknown = false;
+
+    for (const element of collection) {
+      if(element.price != "unknown"){
+        const price = parseFloat(element.price);
+        const count = parseInt(element.count)
+        cost += count * price;
+      } else {
+        hasUnknown = true;
+      }
+    }
+
+
+
+    const costStr = (parseFloat(String(cost)) || 0).toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    return hasUnknown ? `$${costStr}*` : `$${costStr}`;
+  }
 
   return (
     <div className={"AddCardsToCollection"}>
@@ -173,13 +205,20 @@ export const AddCardsToCollectionModalComponent: React.FC<{onClose:()=>void}> = 
         </div>
       </div>
       <div className={"right-panel"}>
-        <div>
-          <button onClick={onClose}>Close</button>
+        <div className={"header"}>
+          <div className={"details"}>
+            <p className={"total"}>{`Count : ${getCount()}`}</p>
+            <p className={"total"}>{`Cost : ${getCost()}`}</p>
+          </div>
+          <ActionButtonComponent ctaAction={onClose} ctaText={"X"} theme={"danger"}/>
         </div>
         <div>
-          <Table headers={headers} data={data} removeHandler={handleRemove}/>
+        <Table headers={headers} data={collection as any} removeHandler={handleRemoveCard} height={500}/>
         </div>
-        <div className={"buttons"}></div>
+        <div className={"buttons"}>
+          <ActionButtonComponent ctaText={"Add To Collection"} ctaAction={()=> {console.log("Add To Collection Pressed")}} theme={"main"}/>
+          <ActionButtonComponent ctaText={"Clear Collection"} ctaAction={()=> {console.log("Clear Collection Pressed")}} theme={"danger"}/>
+        </div>
       </div>
       <div className={"overlay"}/>
     </div>
